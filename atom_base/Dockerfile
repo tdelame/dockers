@@ -39,7 +39,7 @@ COPY compiler-rt.sh ${TOOLCHAIN_BUILD_DIR}/scripts/
 RUN ${TOOLCHAIN_BUILD_DIR}/scripts/compiler-rt.sh
 
 # default conan setup
-RUN printf "[settings]\nos=Linux\nos_build=Linux\narch=x86_64\narch_build=x86_64\ncompiler=clang\ncompiler.version=9\ncompiler.libcxx=libstdc++11\nbuild_type=Release\n[env]\nCC=${TOOLCHAIN_PREFIX}/bin/clang\nCXX=${TOOLCHAIN_PREFIX}/bin/clang++\nLD_LIBRARY_PATH=[${TOOLCHAIN_PREFIX}/lib64]\nCONAN_CMAKE_GENERATOR=Ninja" > ~/.conan/profiles/default
+RUN printf "[settings]\nos=Linux\nos_build=Linux\narch=x86_64\narch_build=x86_64\ncompiler=clang\ncompiler.version=9\ncompiler.libcxx=libstdc++11\nbuild_type=Release\n" > ~/.conan/profiles/default
 
 # remove unneeded tools and dirs
 RUN yum autoremove -y -q gcc gcc-c++                                        \
@@ -57,3 +57,4 @@ RUN yum autoremove -y -q gcc gcc-c++                                        \
 ENV LD_LIBRARY_PATH ${TOOLCHAIN_PREFIX}/lib64:${TOOLCHAIN_PREFIX}/lib
 ENV CC ${TOOLCHAIN_PREFIX}/bin/clang
 ENV CXX ${TOOLCHAIN_PREFIX}/bin/clang++
+ENV CONAN_CMAKE_GENERATOR Ninja
